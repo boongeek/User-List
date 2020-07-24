@@ -1,0 +1,116 @@
+<div class="form-container">
+  <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+    <div class="field">
+      <label class="label">Firstname</label>
+      <div class="control">
+        <input
+          type="text"
+          name="firstname"
+          [(ngModel)]="user.firstname"
+          required pattern="[A-Za-z]+" minlength="4"
+          class="input"
+          #firstname="ngModel"
+        />
+      </div>
+    </div>
+
+    <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert-danger">
+  <div *ngIf="firstname.errors.required">
+    Firstname is required.
+  </div>
+  <div *ngIf="firstname.errors.minlength">
+    Firstame must be at least 4 characters long.
+  </div>
+  <div *ngIf="firstname.errors.pattern">
+    Firstame is not valid.
+  </div>
+</div>
+
+    <br />
+
+    <div class="field">
+      <label class="label">Lastname</label>
+      <div class="control">
+        <input
+          type="text"
+          name="lastname"
+          [(ngModel)]="user.lastname"
+          required pattern="[A-Za-z]+" minlength="4"
+          class="input"
+          #lastname="ngModel"
+        />
+
+      </div>
+    </div>
+
+    <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert-danger">
+  <div *ngIf="lastname.errors.required">
+    Lastname is required.
+  </div>
+  <div *ngIf="lastname.errors.minlength">
+    Lastname must be at least 4 characters long.
+  </div>
+  <div *ngIf="lastname.errors.pattern">
+    Lastname is not valid.
+  </div>
+</div>
+
+    <div class="field">
+      <label class="label">Email</label>
+      <div class="control">
+        <input
+          type="email"
+          name="email"
+          [ngModel]="user.email"
+          (keyup)="filter($event.target.value)"
+          required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #offEmail="ngModel"
+          class="input"
+        />
+
+      </div>
+    </div>
+    <div *ngIf="offEmail.invalid && (offEmail.dirty || offEmail.touched)" class="alert-danger">
+      <div *ngIf="offEmail.errors.required"> 
+          Official Email required.
+      </div>			   
+      <div *ngIf="offEmail.errors.pattern"> 
+          Official Email not valid.
+      </div>	
+     
+   </div> 
+   <div *ngIf="emailExist" class="alert-danger">Email must be Unique</div>
+  
+    <div class="field">
+      <label class="label">Role</label>
+
+    <div class="select">
+      <select name="role" [ngModel]="user.role" #filterSelect (change)="onOptionsSelected(filterSelect.value)" required>
+        <option value="">Choose role</option>
+        <option value="Artist">Artist</option>
+        <option value="Designer">Designer</option>
+        <option value="Manager">Art manager</option>
+      </select>
+    </div>
+    </div>
+
+    <div *ngIf="managerExist" class="alert-danger">Art manager was already added in the list</div>
+
+
+    <div class="field is-grouped is-pulled-right">
+      <div class="control">
+        <button class="button is-text" type="button" (click)="cancel()">
+          Cancel
+        </button>
+      </div>
+      <div class="control">
+        <button
+          class="button is-success"
+          type="submit"
+          [disabled]="!userForm.valid || managerExist || emailExist"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

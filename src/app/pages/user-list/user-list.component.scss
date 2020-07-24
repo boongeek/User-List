@@ -1,0 +1,44 @@
+@import '../../../main-styles.scss';
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+	margin: auto;
+  padding-top: 50px;
+}
+
+.user-list {
+  margin-top: 35px;
+  margin-bottom: 70px;
+}
+
+
+.floating-add-button {
+  position: fixed;
+  bottom: 0;
+  width: 500px;
+  border-radius: 0;
+  box-shadow: 0 0 15px 5px rgba($blue, 0.2);
+  height: 68px;
+  font-size: 24px;
+}
+
+.x-button {
+
+  height: 34px;
+  width: 34px;
+  background-color: $light-red;
+  background-image: url("../../../assets/delete_icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 4px;
+  opacity: 1;
+  &:hover {
+    background-color: darken($light-red, 2%);
+  }
+
+  &:active {
+    background-color: darken($light-red, 4%);
+  }
+}
